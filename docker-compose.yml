@@ -4,7 +4,9 @@ services:
     container_name: watchtower
     network_mode: bridge
     environment:
-      # 代理只配在 NAS 那个 Stack 的环境变量里（NAS 需代理，VPS 直连）；不要加回这里
+      # 代理只由各 Stack 的环境变量提供：NAS 配 HTTP(S)_PROXY，VPS 不配（直连）。这里只引用变量，不写死地址。
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
       - WATCHTOWER_NOTIFICATIONS_LEVEL=info
       - WATCHTOWER_NOTIFICATION_REPORT=true
       - WATCHTOWER_NOTIFICATION_URL=${WATCHTOWER_NOTIFICATION_URL}
